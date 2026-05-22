@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trenzadora Automática ProWire | ProWire Systems</title>
+  <!-- Import Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0A2540;
+      --secondary: #635BFF;
+      --accent: #00D4FF;
+      --background: #F8FAFC;
+      --text: #4A5568;
+      --text-dark: #0F172A;
+      --white: #FFFFFF;
+      --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+      --card-shadow-hover: 0 30px 60px -15px rgba(99, 91, 255, 0.1);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    /* Sticky Glassmorphic Header & Nav */
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Menu Dropdown */
+    .menu-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--white);
+      border: 1px solid #E2E8F0;
+      border-radius: 30px;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .dropdown-trigger:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      box-shadow: 0 10px 20px -5px rgba(99, 91, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .dropdown-menu-list {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 16px;
+      min-width: 260px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      animation: dropdownFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1010;
+    }
+
+    .menu-dropdown:hover .dropdown-menu-list,
+    .menu-dropdown.active .dropdown-menu-list {
+      display: flex;
+    }
+
+    @keyframes dropdownFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(99, 91, 255, 0.06);
+      color: var(--secondary);
+      padding-left: 18px;
+    }
+
+    .dropdown-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 20px;
+      background: radial-gradient(circle at 80% 20%, rgba(99, 91, 255, 0.05) 0%, transparent 50%), 
+                  radial-gradient(circle at 10% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+      margin-bottom: 40px;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(99, 91, 255, 0.08);
+      color: var(--secondary);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h2 {
+      font-size: 3.25rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h2 span {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: rgba(99, 91, 255, 0.1);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* General Containers & Layouts */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    /* Cards styling */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 30px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: rgba(99, 91, 255, 0.2);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      flex-grow: 1;
+    }
+
+    .card ul {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .card ul li {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card ul li svg {
+      width: 16px;
+      height: 16px;
+      color: #10B981;
+      stroke-width: 3;
+      flex-shrink: 0;
+    }
+
+    /* Buttons styling */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background-color: var(--secondary);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.25s ease;
+      border: 1px solid var(--secondary);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background-color: #5247E5;
+      border-color: #5247E5;
+      box-shadow: 0 8px 20px rgba(99, 91, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--secondary);
+      border: 2px solid var(--secondary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--secondary);
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(99, 91, 255, 0.15);
+    }
+
+    /* Mission / Vision Asymmetric Style */
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .asymmetric-card {
+      background: var(--white);
+      padding: 50px 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+
+    .asymmetric-card.accent {
+      border-left: 6px solid var(--accent);
+    }
+
+    .asymmetric-card.secondary {
+      border-left: 6px solid var(--secondary);
+    }
+
+    .asymmetric-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .asymmetric-card p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Model Section modern icons grid */
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .model-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .model-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 91, 255, 0.08);
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper.accent {
+      background: rgba(0, 212, 255, 0.08);
+      color: #00B4D8;
+    }
+
+    .model-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .model-card p {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Offers Section Upgrades */
+    .offers-section {
+      background: linear-gradient(135deg, rgba(99, 91, 255, 0.04) 0%, rgba(0, 212, 255, 0.04) 100%);
+      padding: 80px 40px;
+      border-radius: 24px;
+      margin-bottom: 80px;
+      border: 1px solid rgba(99, 91, 255, 0.08);
+    }
+
+    .offer-badge {
+      background: #E3FCEF;
+      color: #006644;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .price-container {
+      margin-top: auto;
+      padding-top: 20px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .price-strike {
+      text-decoration: line-through;
+      color: #8898AA;
+      font-size: 0.95rem;
+      margin-right: 12px;
+    }
+
+    .price-new {
+      font-size: 1.6rem;
+      color: var(--text-dark);
+      font-weight: 800;
+    }
+
+    /* Card highlighting features */
+    .card.featured {
+      border: 2px solid var(--secondary);
+    }
+
+    .card-label {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: var(--white);
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Modernized Forms */
+    form {
+      background: var(--white);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      max-width: 650px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      margin-left: 2px;
+    }
+
+    input, textarea {
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #F8FAFC;
+      transition: all 0.25s ease;
+      color: var(--text-dark);
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(99, 91, 255, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 20px 40px;
+      margin-top: 80px;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      width: 100%;
+      text-align: center;
+      padding-top: 24px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .asymmetric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 2.3rem;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+      form {
+        padding: 30px 20px;
+      }
+      .offers-section {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Glassmorphic Header & Nav -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo-link">
+        <!-- SVG Logo: Abstract wire braiding loop -->
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16C6 16 10 8 16 8C22 8 26 16 26 16" stroke="url(#logo-grad-1)" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M6 16C6 16 10 24 16 24C22 24 26 16 26 16" stroke="url(#logo-grad-2)" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="3.5" fill="#0A2540"/>
+          <defs>
+            <linearGradient id="logo-grad-1" x1="6" y1="12" x2="26" y2="12" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#635BFF"/>
+              <stop offset="1" stop-color="#00D4FF"/>
+            </linearGradient>
+            <linearGradient id="logo-grad-2" x1="6" y1="20" x2="26" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00D4FF"/>
+              <stop offset="1" stop-color="#635BFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">ProWire Systems</span>
+      </a>
+      
+      <!-- Collapsible Navigation Menu -->
+      <div class="menu-dropdown">
+        <button class="dropdown-trigger" aria-label="Abrir menú de navegación">
+          Explorar Secciones
+          <!-- Small arrow icon -->
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="dropdown-menu-list">
+          <a href="#empresa" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Nuestra Empresa
+          </a>
+          <a href="#modelo" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Modelo de Negocio
+          </a>
+          <a href="#catalogo" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Catálogo
+          </a>
+          <a href="#ofertas" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            Ofertas de Temporada
+          </a>
+          <a href="Organigrama.html" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="M5 16V9a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v7"></path><path d="M12 8v8"></path></svg>
+            Organigrama
+          </a>
+          <a href="#contacto" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Contacto
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tag">Ingeniería Avanzada</span>
+        <h2>Líderes en Automatización de <span>Trenzado de Cable</span></h2>
+        <p>Optimizamos procesos de producción industrial con maquinaria robusta, precisión micrométrica y tecnología de última generación. Maximiza tu rendimiento de forma inteligente.</p>
+        <div class="hero-buttons">
+          <a href="#catalogo" class="btn">Ver Catálogo</a>
+          <a href="#contacto" class="btn btn-outline">Solicitar Asesoría</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <!-- SVG Braiding Machine Animation Concept -->
+        <svg width="340" height="300" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wireGrad" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#635BFF" />
+              <stop offset="0.5" stop-color="#00D4FF" />
+              <stop offset="1" stop-color="#635BFF" />
+            </linearGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#635BFF" flood-opacity="0.15"/>
+            </filter>
+          </defs>
+          <circle cx="200" cy="160" r="140" stroke="rgba(99, 91, 255, 0.05)" stroke-width="2" />
+          <circle cx="200" cy="160" r="100" stroke="rgba(99, 91, 255, 0.08)" stroke-width="1" stroke-dasharray="5 5" />
+          
+          <path d="M50 160 H350" stroke="#CBD5E1" stroke-width="16" stroke-linecap="round" />
+          <path d="M50 160 H200" stroke="url(#wireGrad)" stroke-width="12" stroke-linecap="round" />
+          <path d="M200 160 H350" stroke="url(#wireGrad)" stroke-dasharray="6 3" stroke-width="12" stroke-linecap="round" />
+
+          <!-- Rotating Bobbins Group 1 -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0 200 160" to="360 200 160" dur="12s" repeatCount="indefinite" />
+            <circle cx="200" cy="160" r="80" stroke="rgba(99, 91, 255, 0.15)" stroke-width="3" stroke-dasharray="10 15 40 10" />
+            <circle cx="200" cy="80" r="14" fill="#635BFF" filter="url(#glow)" />
+            <circle cx="200" cy="80" r="6" fill="#FFF" />
+            <circle cx="200" cy="240" r="14" fill="#00D4FF" filter="url(#glow)" />
+            <circle cx="200" cy="240" r="6" fill="#FFF" />
+            <!-- Strands to Braiding Point -->
+            <path d="M200 80 Q180 120 200 160" stroke="#635BFF" stroke-width="3" stroke-linecap="round" fill="none" />
+            <path d="M200 240 Q220 200 200 160" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" fill="none" />
+          </g>
+          
+          <!-- Rotating Bobbins Group 2 (Reverse) -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="360 200 160" to="0 200 160" dur="8s" repeatCount="indefinite" />
+            <circle cx="200" cy="160" r="50" stroke="rgba(0, 212, 255, 0.15)" stroke-width="2" stroke-dasharray="15 15" />
+            <circle cx="150" cy="160" r="10" fill="#0A2540" />
+            <circle cx="150" cy="160" r="4" fill="#FFF" />
+            <circle cx="250" cy="160" r="10" fill="#0A2540" />
+            <circle cx="250" cy="160" r="4" fill="#FFF" />
+            <!-- Strands to Braiding Point -->
+            <path d="M150 160 Q170 180 200 160" stroke="#0A2540" stroke-width="2" stroke-linecap="round" fill="none" />
+            <path d="M250 160 Q230 140 200 160" stroke="#0A2540" stroke-width="2" stroke-linecap="round" fill="none" />
+          </g>
+
+          <circle cx="200" cy="160" r="12" fill="#0A2540" stroke="#FFF" stroke-width="3" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Misión y Visión Section -->
+    <section id="empresa">
+      <h2 class="section-title">Nuestra Empresa</h2>
+      <p class="section-subtitle">Construimos tecnología de alta fidelidad basada en un compromiso inalterable de innovación y calidad.</p>
+      
+      <div class="asymmetric-grid">
+        <div class="asymmetric-card secondary">
+          <h3>
+            <!-- Info Icon SVG -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            Nuestra Misión
+          </h3>
+          <p>Diseñar y fabricar trenzadoras de cable automatizadas que aumenten notablemente la productividad, minimicen los errores humanos y optimicen los flujos de procesos industriales, ofreciendo soluciones fiables, sumamente innovadoras y asequibles para nuestros clientes globales.</p>
+        </div>
+        <div class="asymmetric-card accent">
+          <h3>
+            <!-- Compass Icon SVG -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            Nuestra Visión
+          </h3>
+          <p>Consolidarnos como el proveedor referente en soluciones integradas de automatización para la industria del cableado a nivel nacional e internacional, destacando por nuestra vanguardia tecnológica, calidad total y un compromiso continuo hacia la excelencia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Política de Calidad -->
+    <section id="politica">
+      <h2 class="section-title">Comprometidos con la Calidad</h2>
+      <p class="section-subtitle">Pilares éticos y técnicos que impulsan la satisfacción total en cada proyecto industrial.</p>
+      
+      <div class="grid">
+        <div class="card">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Calidad Garantizada</h3>
+          <p>Equipos extremadamente robustos, seguros y probados exhaustivamente bajo rigurosos protocolos industriales y normativas internacionales de seguridad.</p>
+        </div>
+        <div class="card">
+          <div class="icon-wrapper accent">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          </div>
+          <h3>Innovación Constante</h3>
+          <p>Perfeccionamos sistemáticamente nuestros diseños mecánicos y electrónicos, incorporando los últimos avances en microprocesadores y software industrial.</p>
+        </div>
+        <div class="card">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3>Acompañamiento Integral</h3>
+          <p>Brindamos consultoría experta, capacitación técnica dedicada para operadores y un programa postventa proactivo que optimiza la vida útil del equipo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modelo de Negocio Section -->
+    <section id="modelo">
+      <h2 class="section-title">Modelo de Negocio</h2>
+      <p class="section-subtitle">Un enfoque centrado en la creación de valor mutuo y soluciones de extremo a extremo.</p>
+      
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="icon-wrapper">
+            <!-- Shopping bag SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          </div>
+          <h3>Venta Directa</h3>
+          <p>Diseño y fabricación propia. Suministramos maquinaria de última generación de manera directa para evitar intermediarios y reducir costes directos.</p>
+        </div>
+        <div class="model-card">
+          <div class="icon-wrapper accent">
+            <!-- Tool SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          </div>
+          <h3>Soporte & Mantenimiento</h3>
+          <p>Planes estructurados de mantenimiento preventivo y soporte prioritario para mantener tu producción operando las 24 horas del día, los 7 días de la semana.</p>
+        </div>
+        <div class="model-card">
+          <div class="icon-wrapper">
+            <!-- Book/open-book SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          </div>
+          <h3>Capacitación Técnica</h3>
+          <p>Programas exhaustivos de transferencia de tecnología y certificación in-situ para asegurar que el personal obtenga el máximo rendimiento de los equipos.</p>
+        </div>
+        <div class="model-card">
+          <div class="icon-wrapper accent">
+            <!-- Wallet/Credit Card SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          </div>
+          <h3>Financiamiento Flexible</h3>
+          <p>Diseñamos opciones de adquisición y arrendamiento a medida, permitiendo a talleres emergentes o consolidados escalar sus operaciones gradualmente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catálogo Section -->
+    <section id="catalogo">
+      <h2 class="section-title">Catálogo de Productos Profesionales</h2>
+      <p class="section-subtitle">Maquinaria inteligente diseñada para alcanzar los mayores estándares de rendimiento y durabilidad.</p>
+      
+      <div class="grid">
+        <!-- T-100 -->
+        <div class="card">
+          <h3>ProWire T-100</h3>
+          <p>Modelo de automatización base, diseñado específicamente para líneas de producción ligera y talleres de cableado fino.</p>
+          <ul>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Velocidad: hasta 120 trenzas/min
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Pantalla digital de control intuitivo
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Eficiencia y bajo consumo eléctrico
+            </li>
+          </ul>
+          <a href="#contacto" class="btn btn-outline" style="margin-top:auto;">Solicitar Ficha</a>
+        </div>
+        
+        <!-- T-300 (Featured) -->
+        <div class="card featured">
+          <span class="card-label">Más Vendido</span>
+          <h3>ProWire T-300</h3>
+          <p>El estándar más robusto de la industria global. Máxima versatilidad y rendimiento continuo para una amplia gama de calibres.</p>
+          <ul>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Velocidad: hasta 250 trenzas/min
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Pantalla táctil HMI integrada de 7"
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Sistema de autodiagnóstico en tiempo real
+            </li>
+          </ul>
+          <a href="#contacto" class="btn" style="margin-top:auto;">Solicitar Ficha</a>
+        </div>
+        
+        <!-- T-500 Pro -->
+        <div class="card">
+          <h3>ProWire T-500 Pro</h3>
+          <p>Nuestra joya de ingeniería industrial. Diseñada para operar sin descanso en condiciones de alta capacidad y volúmenes masivos.</p>
+          <ul>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Velocidad extrema: hasta 400 trenzas/min
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Integración PLC/SCADA directa
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Precisión de trenzado micrométrico
+            </li>
+          </ul>
+          <a href="#contacto" class="btn btn-outline" style="margin-top:auto;">Solicitar Ficha</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Offers Section -->
+    <div class="offers-section" id="ofertas">
+      <h2 class="section-title">Ofertas de Temporada</h2>
+      <p class="section-subtitle">Optimiza tus líneas de producción con oportunidades únicas de financiamiento y descuentos.</p>
+      
+      <div class="grid">
+        <!-- Oferta 1 -->
+        <div class="card">
+          <div>
+            <span class="offer-badge">15% de Descuento</span>
+            <h3>Paquete Industrial</h3>
+            <p>Renueva tu planta. Adquiere el modelo ProWire T-300 con instalación profesional de ingenieros y capacitación operativa de 5 días incluida.</p>
+          </div>
+          <div class="price-container">
+            <span class="price-strike">$15,000 USD</span>
+            <span class="price-new">$12,750 USD</span>
+          </div>
+          <a href="#contacto" class="btn" style="margin-top: 20px; width: 100%;">Aprovechar Oferta</a>
+        </div>
+        
+        <!-- Oferta 2 -->
+        <div class="card">
+          <div>
+            <span class="offer-badge">Tasa Preferencial 0%</span>
+            <h3>Plan Start-Up</h3>
+            <p>Ideal para nuevos talleres. Lleva tu ProWire T-100 a mensualidades fijas sin intereses y acelera tu producción hoy mismo.</p>
+          </div>
+          <div class="price-container">
+            <span class="price-new">Desde $350 USD/mes</span>
+          </div>
+          <a href="#contacto" class="btn" style="margin-top: 20px; width: 100%;">Solicitar Crédito</a>
+        </div>
+        
+        <!-- Oferta 3 -->
+        <div class="card">
+          <div>
+            <span class="offer-badge">Bono Premium</span>
+            <h3>Soporte Técnico Extendido</h3>
+            <p>Adquiere la maquinaria industrial de alto nivel ProWire T-500 y recibe de forma gratuita 24 meses de mantenimiento preventivo integral.</p>
+          </div>
+          <div class="price-container">
+            <span class="price-strike">Valor: $2,400 USD</span>
+            <span class="price-new">GRATIS</span>
+          </div>
+          <a href="#contacto" class="btn" style="margin-top: 20px; width: 100%;">Cotizar T-500</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contacto">
+      <h2 class="section-title">Asesoría de Ingeniería</h2>
+      <p class="section-subtitle">¿Dudas sobre especificaciones o configuraciones personalizadas? Envíanos un mensaje.</p>
+      
+      <form id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre o Empresa</label>
+            <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono de Contacto</label>
+            <input type="tel" id="telefono" placeholder="+52 (55) 1234-5678">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo Corporativo</label>
+          <input type="email" id="email" placeholder="contacto@tuempresa.com" required>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Detalles del Requerimiento</label>
+          <textarea id="mensaje" placeholder="Me interesa cotizar el modelo T-300 con un alimentador automático..." required></textarea>
+        </div>
+        <button type="submit" class="btn" style="width: 100%; padding: 16px; font-size: 1.05rem;">Enviar Solicitud</button>
+      </form>
+    </section>
+    
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16C6 16 10 8 16 8C22 8 26 16 26 16" stroke="url(#footer-grad-1)" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M6 16C6 16 10 24 16 24C22 24 26 16 26 16" stroke="url(#footer-grad-2)" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="3.5" fill="#FFFFFF"/>
+          <defs>
+            <linearGradient id="footer-grad-1" x1="6" y1="12" x2="26" y2="12" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#635BFF"/>
+              <stop offset="1" stop-color="#00D4FF"/>
+            </linearGradient>
+            <linearGradient id="footer-grad-2" x1="6" y1="20" x2="26" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00D4FF"/>
+              <stop offset="1" stop-color="#635BFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        ProWire Systems
+      </div>
+      <div class="footer-links">
+        <a href="#empresa">Empresa</a>
+        <a href="#modelo">Modelo</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#ofertas">Ofertas</a>
+        <a href="Organigrama.html">Organigrama</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 ProWire Systems — Todos los derechos reservados. Innovación tecnológica y confiabilidad industrial.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Light Dropdown Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdown = document.querySelector('.menu-dropdown');
+      const trigger = document.querySelector('.dropdown-trigger');
+      const dropdownLinks = document.querySelectorAll('.dropdown-item');
+
+      // Toggle active status for dropdown menu
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+      });
+
+      // Close dropdown when link is clicked
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          dropdown.classList.remove('active');
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+      
+      // Simple Form Handler (Demonstration)
+      const form = document.getElementById('contact-form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('¡Gracias por ponerte en contacto! Un ingeniero especialista responderá a tu solicitud a la brevedad.');
+          form.reset();
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organigrama | ProWire Systems</title>
+  <!-- Import Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0A2540;
+      --secondary: #635BFF;
+      --accent: #00D4FF;
+      --background: #F8FAFC;
+      --text: #4A5568;
+      --text-dark: #0F172A;
+      --white: #FFFFFF;
+      --line: #E2E8F0;
+      --card-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
+      --card-shadow-hover: 0 25px 40px -10px rgba(99, 91, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+    }
+
+    /* Sticky Glassmorphic Header & Nav */
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Menu Dropdown */
+    .menu-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--white);
+      border: 1px solid #E2E8F0;
+      border-radius: 30px;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .dropdown-trigger:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      box-shadow: 0 10px 20px -5px rgba(99, 91, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .dropdown-menu-list {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 16px;
+      min-width: 260px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      animation: dropdownFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1010;
+    }
+
+    .menu-dropdown:hover .dropdown-menu-list,
+    .menu-dropdown.active .dropdown-menu-list {
+      display: flex;
+    }
+
+    @keyframes dropdownFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(99, 91, 255, 0.06);
+      color: var(--secondary);
+      padding-left: 18px;
+    }
+
+    .dropdown-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Layout Containers */
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .org-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .org-header h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .org-header p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text);
+    }
+
+    /* Organization Chart styling */
+    .org-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .level {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      position: relative;
+      width: 100%;
+    }
+
+    .node {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 24px;
+      border-radius: 16px;
+      min-width: 220px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .node:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: rgba(99, 91, 255, 0.25);
+    }
+
+    .node h3 {
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .node .name {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      font-weight: 600;
+      background: rgba(99, 91, 255, 0.05);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .top-node {
+      background: linear-gradient(135deg, var(--primary) 0%, #173b64 100%);
+      border: none;
+      box-shadow: 0 15px 30px -5px rgba(10, 37, 64, 0.2);
+    }
+
+    .top-node h3 {
+      color: var(--white);
+    }
+
+    .top-node .name {
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 20px 40px;
+      margin-top: 100px;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      width: 100%;
+      text-align: center;
+      padding-top: 24px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    @media (max-width: 768px) {
+      .level {
+        flex-direction: column;
+        align-items: center;
+      }
+      .node {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Glassmorphic Header & Nav -->
+  <header>
+    <div class="nav-container">
+      <a href="Trenzadora.html" class="logo-link">
+        <!-- SVG Logo: Abstract wire braiding loop -->
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16C6 16 10 8 16 8C22 8 26 16 26 16" stroke="url(#logo-grad-1)" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M6 16C6 16 10 24 16 24C22 24 26 16 26 16" stroke="url(#logo-grad-2)" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="3.5" fill="#0A2540"/>
+          <defs>
+            <linearGradient id="logo-grad-1" x1="6" y1="12" x2="26" y2="12" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#635BFF"/>
+              <stop offset="1" stop-color="#00D4FF"/>
+            </linearGradient>
+            <linearGradient id="logo-grad-2" x1="6" y1="20" x2="26" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00D4FF"/>
+              <stop offset="1" stop-color="#635BFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">ProWire Systems</span>
+      </a>
+      
+      <!-- Collapsible Navigation Menu -->
+      <div class="menu-dropdown">
+        <button class="dropdown-trigger" aria-label="Abrir menú de navegación">
+          Explorar Secciones
+          <!-- Small arrow icon -->
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="dropdown-menu-list">
+          <a href="Trenzadora.html#empresa" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Nuestra Empresa
+          </a>
+          <a href="Trenzadora.html#modelo" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Modelo de Negocio
+          </a>
+          <a href="Trenzadora.html#catalogo" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Catálogo
+          </a>
+          <a href="Trenzadora.html#ofertas" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            Ofertas de Temporada
+          </a>
+          <a href="Organigrama.html" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="M5 16V9a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v7"></path><path d="M12 8v8"></path></svg>
+            Organigrama
+          </a>
+          <a href="Trenzadora.html#contacto" class="dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Contacto
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="org-header">
+      <h2>Estructura Organizacional</h2>
+      <p>Conoce al equipo técnico y operativo de ProWire Systems que hace posible nuestra excelencia.</p>
+    </div>
+
+    <!-- Simplified robust layout for Organigram -->
+    <div class="org-tree">
+      <!-- Nivel 1 -->
+      <div class="level">
+        <div class="node top-node">
+          <h3>DIRECCIÓN GENERAL</h3>
+          <div class="name">(4 personas)</div>
+        </div>
+      </div>
+
+      <!-- Nivel 2 -->
+      <div class="level">
+        <div class="node">
+          <h3>Secretaria</h3>
+          <div class="name">(2 personas)</div>
+        </div>
+      </div>
+
+      <!-- Nivel 3 -->
+      <div class="level">
+        <div class="node">
+          <h3>Recursos Humanos</h3>
+          <div class="name">(3 personas)</div>
+        </div>
+
+        <div class="node">
+          <h3>Finanzas y Contabilidad</h3>
+          <div class="name">(4 personas)</div>
+        </div>
+
+        <div class="node">
+          <h3>Logística y Compras</h3>
+          <div class="name">(4 personas)</div>
+        </div>
+
+        <div class="node">
+          <h3>Marketing y ventas</h3>
+          <div class="name">(3 personas)</div>
+        </div>
+
+        <div class="node">
+          <h3>Producción y Operaciones</h3>
+          <div class="name">(20 personas)</div>
+        </div>
+
+        <div class="node">
+          <h3>Tecnología</h3>
+          <div class="name">(3 personas)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16C6 16 10 8 16 8C22 8 26 16 26 16" stroke="url(#footer-grad-1)" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M6 16C6 16 10 24 16 24C22 24 26 16 26 16" stroke="url(#footer-grad-2)" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="3.5" fill="#FFFFFF"/>
+          <defs>
+            <linearGradient id="footer-grad-1" x1="6" y1="12" x2="26" y2="12" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#635BFF"/>
+              <stop offset="1" stop-color="#00D4FF"/>
+            </linearGradient>
+            <linearGradient id="footer-grad-2" x1="6" y1="20" x2="26" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00D4FF"/>
+              <stop offset="1" stop-color="#635BFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        ProWire Systems
+      </div>
+      <div class="footer-links">
+        <a href="Trenzadora.html#empresa">Empresa</a>
+        <a href="Trenzadora.html#modelo">Modelo</a>
+        <a href="Trenzadora.html#catalogo">Catálogo</a>
+        <a href="Trenzadora.html#ofertas">Ofertas</a>
+        <a href="Organigrama.html">Organigrama</a>
+        <a href="Trenzadora.html#contacto">Contacto</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 ProWire Systems — Todos los derechos reservados. Innovación tecnológica y confiabilidad industrial.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Light Dropdown Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdown = document.querySelector('.menu-dropdown');
+      const trigger = document.querySelector('.dropdown-trigger');
+      const dropdownLinks = document.querySelectorAll('.dropdown-item');
+
+      // Toggle active status for dropdown menu
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+      });
+
+      // Close dropdown when link is clicked
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          dropdown.classList.remove('active');
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
